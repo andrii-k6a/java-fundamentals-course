@@ -2,6 +2,7 @@ package com.bobocode.cs;
 
 import java.util.Arrays;
 import java.util.Objects;
+import java.util.Stack;
 import java.util.function.Consumer;
 
 /**
@@ -122,6 +123,30 @@ public class RecursiveBinarySearchTree<T extends Comparable<T>> implements Binar
         return leftDepth + 1;
     }
 
+    // iterative implementation of depth method
+    public int depthIterative() {
+        Stack<Node<T>> stack = new Stack<>();
+        Node<T> current = root;
+        int depth = 0;
+
+        while (current != null || !stack.isEmpty()) {
+            while (current != null) {
+                stack.push(current);
+                current = current.left;
+            }
+            Node<T> node = stack.pop();
+            if (stack.size() > depth) {
+                depth = stack.size();
+            }
+            current = node.right;
+            if (current != null) {
+                stack.push(node.right);
+            }
+        }
+
+        return depth;
+    }
+
     @Override
     public void inOrderTraversal(Consumer<T> consumer) {
         if (root != null) {
@@ -136,6 +161,22 @@ public class RecursiveBinarySearchTree<T extends Comparable<T>> implements Binar
         consumer.accept(current.value);
         if (current.right != null) {
             inOrderTraversal(current.right, consumer);
+        }
+    }
+
+    // iterative implementation of inOrderTraversal method
+    public void inOrderTraversalIterative(Consumer<T> consumer) {
+        Stack<Node<T>> stack = new Stack<>();
+        Node<T> current = root;
+
+        while (current != null || !stack.isEmpty()) {
+            while (current != null) {
+                stack.push(current);
+                current = current.left;
+            }
+            Node<T> node = stack.pop();
+            consumer.accept(node.value);
+            current = node.right;
         }
     }
 }
