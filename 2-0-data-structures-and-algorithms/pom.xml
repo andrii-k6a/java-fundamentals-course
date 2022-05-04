@@ -5,6 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <packaging>pom</packaging>
     <modules>
+        <module>2.2.0-sorting</module>
         <module>2-2-1-node</module>
         <module>2-2-2-stack</module>
         <module>2-2-3-linked-queue</module>
